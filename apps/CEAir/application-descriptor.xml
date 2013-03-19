@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Licensed Materials - Property of IBM
+			 5725-G92 (C) Copyright IBM Corp. 2006, 2012. All Rights Reserved.
+			 US Government Users Restricted Rights - Use, duplication or
+             disclosure restricted by GSA ADP Schedule Contract with IBM Corp. -->
+<!-- Attribute "id" must be identical to application folder name -->
+<application xmlns="http://www.worklight.com/application-descriptor" id="CEAir" platformVersion="5.0.2">
+    <displayName>CEAir</displayName>
+    <description>CEAir</description>
+    <author>
+        <name>Thierry Xing</name>
+        <email>thierry.xing@gmail.com</email>
+        <homepage>http://www.enwaysoft.com</homepage>
+        <copyright>Enwaysoft</copyright>
+    </author>
+    <height>460</height>
+    <width>320</width>
+    <mainFile>CEAir.html</mainFile>
+    <thumbnailImage>common/images/thumbnail.png</thumbnailImage>
+    <iphone bundleId="com.CEAir.poc" version="1.0">
+        <worklightSettings include="false"/>
+        <security>
+            <encryptWebResources enabled="false"/>
+            <testWebResourcesChecksum enabled="false" ignoreFileExtensions="png, jpg, jpeg, gif, mp4, mp3"/>
+        </security>
+    </iphone>
+    <android version="1.0">
+        <worklightSettings include="false"/>
+        <security>
+            <encryptWebResources enabled="false"/>
+            <testWebResourcesChecksum enabled="false" ignoreFileExtensions="png, jpg, jpeg, gif, mp4, mp3"/>
+            <publicSigningKey>Replace this text with the public key of the certificate with which you sign the APK. For details see the Worklight Developer's Reference Guide.</publicSigningKey>
+        </security>
+    </android>
+    <worklightServerRootURL>http://${local.IPAddress}:8080</worklightServerRootURL>
+</application>

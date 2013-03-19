@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="CEAir">
+        <wb-resource deploy-path="/" source-path="/apps/CEAir/common"/>
+        <wb-resource deploy-path="/" source-path="/apps/CEAir/iphone"/>
+        <wb-resource deploy-path="/" source-path="/apps/CEAir/android"/>
+        <wb-resource deploy-path="/" source-path="/apps/CEAir/ipad"/>
+        <property name="context-root" value="CEAir"/>
+    </wb-module>
+</project-modules>

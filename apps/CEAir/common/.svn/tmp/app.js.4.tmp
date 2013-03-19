@@ -1,0 +1,106 @@
+//<debug>
+Ext.Loader.setPath({
+	'Ext.ux.touch.grid' : 'app/Ext.ux.touch.grid',
+
+});
+// </debug>
+
+Ext.application({
+	name : 'CEAIR',
+
+<<<<<<< .mine
+	platform : WL.Client.getEnvironment(),
+	// platform : "",
+=======
+//	 platform : WL.Client.getEnvironment(),
+	platform : "",
+>>>>>>> .r871
+
+	requires : [ 'Ext.MessageBox', 'Ext.ux.touch.grid.List', 'Ext.ux.touch.grid.feature.Feature',
+			'Ext.ux.touch.grid.feature.Sorter' ],
+
+	views : [ 'Login', 'Main', 'MainList',
+	// Thierry
+	'Contact.List',
+	// Geo
+	'Flight.List' ],
+
+	stores : [ 'Flight',
+	// Thierry
+	"Contacts"
+	// Geo
+	],
+
+	models : [
+	// Thierry
+	"Contact",
+	// Geo
+	'Flight' ],
+
+	controllers : [
+	//
+	"MainController", "LoginController",
+
+	// Thierry
+	"ContactController",
+
+	// Geo
+	"FlightController", ],
+
+	launch : function() {
+		// 去除Msg动画
+		// Ext.Msg.defaultAllowedConfig.showAnimation = false;
+		// Ext.Msg.defaultAllowedConfig.hideAnimation = false;
+		Ext.fly('appLoadingIndicator').destroy();
+
+		// Initialize the main view
+		Ext.Viewport.add(Ext.create('CEAIR.view.Main'));
+
+		// Ext.Viewport.setActiveItem(login);
+	},
+
+	currentUser : {
+		id : "5997",
+		username : "admin",
+		password : "admin",
+	},
+
+	removeRightBtn : function() {
+		var button = Ext.getCmp('rightButton');
+		if (button) {
+			Ext.getCmp('mainview').getNavigationBar().remove(button);
+			// console.log("ssss");
+		}
+	},
+
+	getRequest : function(storeName, listEntity, url, showNullMessage, showView, callback) {
+		var app = this.getApplication();
+		var store = null;
+		if (storeName != "") {
+			store = Ext.getStore(storeName).load();
+		}
+
+		Ext.Viewport.setMasked({
+			xtype : 'loadmask',
+			message : '数据加载中，请稍候...'
+		});
+
+		Ext.Ajax.request({
+			url : url,
+			method : "POST",
+			success : function(response, options) {
+				var resp = Ext.JSON.decode(response.responseText);
+				console.log(resp.array[0]);
+				console.log(resp.array[0].plandepttimedisp);
+				store.setData(resp.array);
+				Ext.Viewport.setMasked(false);
+			},
+			failure : function(response, options) {
+				console.log("failure" + response);
+				Ext.Msg.alert('提示', '获取数据超时，请重试');
+				Ext.Viewport.setMasked(false);
+			}
+		});
+	},
+
+});

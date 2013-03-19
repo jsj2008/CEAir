@@ -1,0 +1,14 @@
+/**
+ * 员工手册-内容
+ */
+Ext.define('CEAIR.view.Handbook.Contents', {
+
+	extend : 'Ext.Panel',
+	xtype : 'handbookContents',
+	config : {
+		id:'handbookContents',
+		data: 'Handbook',
+		html:"<div ><span>{contents}</span></div>",
+//		dataIndex : 'contents',
+	}
+});

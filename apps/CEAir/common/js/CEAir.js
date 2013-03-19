@@ -1,0 +1,43 @@
+/*
+ *  Licensed Materials - Property of IBM
+ *  5725-G92 (C) Copyright IBM Corp. 2006, 2012. All Rights Reserved.
+ *  US Government Users Restricted Rights - Use, duplication or
+ *  disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ */
+
+window.$ = WLJQ;
+
+function wlCommonInit() {
+	document.addEventListener(WL.Events.WORKLIGHT_IS_CONNECTED, connectDetected, false);
+	document.addEventListener(WL.Events.WORKLIGHT_IS_DISCONNECTED, disconnectDetected, false);
+}
+
+
+function connectionFailure() {
+//	var dialogTitle = "提示";
+//	var dialogText = "系统检测到您当前的网络状况差，可能会影响您的使用。";
+//
+//	WL.SimpleDialog.show(dialogTitle, dialogText, [ {
+//		text : '确定',
+//	}
+//
+//	]);
+}
+
+function invokeGetNetworkInfo() {
+	WL.Device.getNetworkInfo(getNetworkInfoCallback);
+}
+
+function getNetworkInfoCallback(info) {
+	alert(JSON.stringify(info));
+}
+
+function disconnectDetected() {
+	// var output = new Date() + "<hr />disconnectDetected";
+	// alert(output);
+}
+
+function connectDetected() {
+	// var output = new Date() + "<hr />connectDetected";
+	// alert(output);
+}

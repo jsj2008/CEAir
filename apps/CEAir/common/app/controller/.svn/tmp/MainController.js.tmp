@@ -1,0 +1,74 @@
+Ext.define("CEAIR.controller.MainController", {
+	extend : "Ext.app.Controller",
+
+	config : {
+		/**
+		 * @private
+		 */
+		views : [ "Flight.List", "Contact.List", "", "" ],
+
+		refs : {
+			mainview : "mainview",
+			mainList : "mainlist",
+			frontBtn : "mainlist panel button",
+
+		},
+
+		control : {
+			mainview : {
+				activate : "onMainviewActivate",
+			},
+			frontBtn : {
+				tap : "onMainListTap"
+			}
+		}
+	},
+
+	// /**
+	// * 首页列表点击处理
+	// */
+	onMainListTap : function(btn) {
+		var view = btn.getId();
+		
+		if (view == "front_Task_List") {
+			view = "front_Flight_List";
+			this.getApplication().isOffline = true;
+		} else if  (view == "front_Flight_List") {
+			this.getApplication().isOffline = false;
+		}
+		
+		view = view.replace("front_", "").replace(new RegExp("_", "gm"), ".");
+		console.log("view:" + view);
+		this.showView(view);
+	},
+
+	/**
+	 * 控制所有页面的创建显示
+	 */
+	showView : function(name) {
+		console.log(name);
+		// CEAIR.app.removeRightBtn();
+		var view = Ext.create("CEAIR.view." + name);
+		this.getMainview().push(view);
+	},
+
+	/**
+	 * 首页 活动
+	 */
+	onMainviewActivate : function() {
+		// this.showView("MainList");
+		var app = this.getApplication();
+		if (app.platform == WL.Environment.ANDROID)
+			nativePage = "com.CEAir.scan.CaptureActivity";
+		else if (app.platform == WL.Environment.IPHONE || app.platform == WL.Environment.IPAD) {
+			nativePage = "CubeViewController";
+		}
+		WL.NativePage.show(nativePage, this.mainCallback, null);
+	},
+
+	mainCallback : function(data) {
+		console.log("CEAir:" + data.index);
+		this.showView(this.getViews()[parseInt(data.index)]);
+	}
+
+});

@@ -1,0 +1,4 @@
+core.ignore= \
+	{cordova.jar} \
+	{worklight-android.jar} \
+	{gcm.jar}

@@ -1,0 +1,76 @@
+/**
+ * 航班动态-查询
+ */
+Ext.define('CEAIR.view.Flight.Query', {
+
+	extend : 'Ext.Panel',
+	xtype : 'flightQuery',
+	requires: [
+			   'Ext.SegmentedButton',
+//			   'Ext.List',
+	       ],
+
+	config : {
+		title : '航班动态',
+		layout : 'vbox',
+		type : 'card',
+		padding:'20 0 20 0',
+		layout : {
+			type : 'card',
+		},
+		items : [ {
+			id : "visitQueryForm",
+			xtype : "formpanel",
+			layout : "vbox",
+		items : [ {
+
+			id : "flightButton",
+			xtype : 'segmentedbutton',
+			layout : {
+				pack : 'center',
+			},
+
+//			items : [ {
+//				id : "onewayButton",
+//				text : '单程机票',
+//				pressed : true,
+//			}, {
+//				id : "twowayVisitButton",
+//				text : '往返机票',
+//			} ],
+		},{
+
+			xtype : 'panel',
+			layout : {
+				type : 'hbox',
+				docked : 'center',
+			},
+			cls : "query",
+//			id:'travelQueryList',
+//			margin : '10 0 0 0',
+//			html : "<img src='images/Flight/query.png' height='574' width='320'/>"
+		
+		}, 
+		{
+			xtype : "container",
+			layout : {
+				type : "hbox",
+				align : "middle"
+			},
+			cls : "buttonArea",
+			items : [ {
+				xtype : "button",
+				flex : 1,
+				width : 287,
+				pack : 'center',
+				id : "queryBtn",
+				cls : "queryBtn",
+				ui : "confirm",
+				text:"查询",
+			}]
+		}
+
+		]
+	}]
+	}
+});

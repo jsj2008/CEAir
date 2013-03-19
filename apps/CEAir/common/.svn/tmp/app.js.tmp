@@ -1,0 +1,74 @@
+//<debug>
+Ext.Loader.setPath({
+	 'Ext.ux.touch.grid' : 'app/Ext.ux.touch.grid',
+
+});
+//</debug>
+
+Ext.application({
+    name: 'CEAIR',
+    
+    platform : WL.Client.getEnvironment(),
+
+    requires: [
+        'Ext.MessageBox','Ext.ux.touch.grid.List', 'Ext.ux.touch.grid.feature.Feature', 'Ext.ux.touch.grid.feature.Sorter' 
+    ],
+
+    views: [
+	'Login',
+	'Main',
+	'MainList',
+	'Flight.List',
+	],
+	
+	stores:[
+	'Flight',
+	//Thierry
+	"Contacts"
+	],
+	
+	models:[ 
+	//Thierry
+	"Contact"
+	],
+	controllers : [
+	//
+	"MainController",
+	"LoginController",
+<<<<<<< .mine
+	//Thierry
+	"ContactController"
+=======
+	"FlightController",
+>>>>>>> .r856
+	],
+
+    launch: function() {
+		// 去除Msg动画
+				// Ext.Msg.defaultAllowedConfig.showAnimation = false;
+				// Ext.Msg.defaultAllowedConfig.hideAnimation = false;
+        Ext.fly('appLoadingIndicator').destroy();
+
+        // Initialize the main view
+        Ext.Viewport.add(Ext.create('CEAIR.view.Main'));
+
+		// Ext.Viewport.setActiveItem(login);
+    },
+	
+	currentUser : {
+		id : "5997",
+		username : "admin",
+		password : "admin",
+	},
+	
+	
+	removeRightBtn : function() {
+		
+		var button = Ext.getCmp('rightButton');
+		if (button) {
+			Ext.getCmp('mainview').getNavigationBar().remove(button);
+			// console.log("ssss");
+		}
+	},
+	
+});

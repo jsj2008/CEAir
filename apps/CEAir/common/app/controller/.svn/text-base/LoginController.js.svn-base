@@ -1,0 +1,128 @@
+Ext.define("CEAIR.controller.LoginController", {
+	extend : "Ext.app.Controller",
+
+	config : {
+		refs : {
+			loginButton : "button[id=loginButton]",
+			resetButton : "button[id=resetButton]",
+			loginForm : "formpanel[id=loginForm]",
+			login : "login",
+			username : "textfield[name=username]",
+			automatic : "checkboxfield[name=automatic]",
+		},
+
+		control : {
+			login : {
+				activate : "onLoginActivate",
+			},
+			loginButton : {
+				tap : "onLoginButtonTap"
+			},
+			resetButton : {
+				tap : "onResetButtonTap"
+			},
+		}
+
+	},
+
+	onLoginActivate : function() {
+
+	},
+
+	/**
+	 * 用户登录
+	 */
+	onLoginButtonTap : function() {
+
+		var app = this.getApplication();
+		var values = this.getLoginForm().getValues();
+
+		var checked = this.getAutomatic().getChecked();
+
+		var username = values.username;
+		var password = values.password;
+
+		this.setAutomaticLogin(checked, username, password);
+
+		if (username == "" || password == "") {
+			Ext.Msg.alert('提示', '用户名和密码不能为空');
+		} else {
+			// var app = this.getApplication();
+
+			Ext.Viewport.setMasked({
+				xtype : 'loadmask',
+				message : '登录中，请稍候...'
+			});
+
+			Ext.Ajax.request({
+				url : "http://mt.ceair.com:7001/loginService/rest/loginService/doLogin",
+				method : "POST",
+				params : "username:" + username + "&password:" + password,
+				success : function(response, options) {
+					var resp = Ext.JSON.decode(response.responseText);
+					// 请求成功
+					var main = Ext.create("CEAIR.view.Main");
+					main.on("deactivate", function(oldActiveItem, container, newActiveItem, eOpts) {
+						if (oldActiveItem) {
+							Ext.Viewport.remove(oldActiveItem, true);
+						}
+					});
+					app.currentUser.username = values.username;
+					app.currentUser.password = values.password;
+					Ext.Viewport.setActiveItem(main);
+					Ext.Viewport.setMasked(false);
+				},
+				failure : function(response, options) {
+					if (typeof WL === 'undefined') {
+						Ext.Msg.alert('提示', '登陆超时，请重试');
+					} else {
+						WL.SimpleDialog.show("提示", "登陆超时，请重试", [ {
+							text : "确定"
+						} ]);
+					}
+					Ext.Viewport.setMasked(false);
+				}
+			});
+		}
+		// Ext.Viewport.setMasked({
+		// xtype : 'loadmask',
+		// message : '登录中...'
+		// });
+		//
+		// if(username==uname&&password==pword){
+		// var main = Ext.create("CEAIR.view.Main");
+		// }else{
+		// Ext.Msg.alert('提示', '用户名或密码不正确');
+		// }
+		// Ext.Viewport.setActiveItem(main);
+		// Ext.Viewport.setMasked(false);
+	},
+
+	/**
+	 * 重置登录表单
+	 */
+	onResetButtonTap : function() {
+		console.log("onLoginButtonTap")
+		this.getLoginForm().reset();
+	},
+
+	setAutomaticLogin : function(checked, username, password) {
+		if (checked) {
+			var login = Ext.create('CEAIR.model.Login', {
+				username : username,
+				password : password,
+				checked : checked
+			});
+			login.save();
+
+			var store = Ext.create('Ext.data.Store', {
+				model : "CEAIR.model.Login"
+			});
+
+			store.load();
+			store.insert(0, login);
+			store.sync();
+		}
+	}
+
+});
