@@ -187,14 +187,31 @@
 	//get item index for button
 	NSInteger index = [carousel indexOfItemView:sender];
     NSDictionary *dic = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:index] forKey:@"index"];
+    [self showTransitionAnim];
     [NativePage showWebView:dic];
 }
 
 -(void)naviClick:(UIButton *)sender
 {
     NSDictionary *dic = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:[sender tag]] forKey:@"index"];
+    // Animate transition with a flip effect
+    [self showTransitionAnim];
     [NativePage showWebView:dic];
 }
+
+-(void)onAfterShow{
+    [self showTransitionAnim];
+}
+
+-(void)showTransitionAnim
+{
+    CDVAppDelegate *cordovaAppDelegate =[[UIApplication sharedApplication] delegate];
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.5];
+    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:[cordovaAppDelegate window] cache:YES];
+    [UIView commitAnimations];
+}
+
 
 
 @end

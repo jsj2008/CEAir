@@ -11,16 +11,15 @@ Ext.application({
 	platform : typeof WL === 'undefined' ? "" : WL.Client.getEnvironment(),
 	// platform : "",
 
+	listData : [],
+
 	requires : [ 'Ext.MessageBox', 'Ext.ux.touch.grid.List', 'Ext.ux.touch.grid.feature.Feature',
 			'Ext.ux.touch.grid.feature.Sorter', 'Ext.device.Connection' ],
 
 	views : [ 'Login', 'Main', 'MainList',
 	// Thierry
 	// Geo
-	'Flight.List', 
-	'Flight.Query', 
-	'Handbook.Contents',
-	],
+	'Flight.List', 'Flight.Query', 'Handbook.Contents', ],
 
 	stores : [ 'Flight',
 	// Thierry
@@ -30,9 +29,7 @@ Ext.application({
 	"Charts",
 	// Geo
 	// "Collect",
-	"Handbook",
-	"Wage",
-	],
+	"Handbook", "Wage", ],
 
 	models : [
 	// Thierry
@@ -48,7 +45,7 @@ Ext.application({
 	"ContactController", "MapController",
 
 	// Geo
-	"FlightController", "MarketController","HandbookController" ],
+	"FlightController", "MarketController", "HandbookController" ],
 
 	launch : function() {
 		// 去除Msg动画
@@ -60,7 +57,7 @@ Ext.application({
 			model : "CEAIR.model.Login"
 		});
 		store.load();
-		console.log(store.getCount());
+		console.log("Ext.os.is.iOS:"+Ext.os.is.iOS);
 
 		// if (Ext.device.Connection.isOnline()) {
 		Ext.Viewport.add(Ext.create('CEAIR.view.Login'));
@@ -132,7 +129,7 @@ Ext.application({
 	},
 
 	getRequest : function(storeName, listEntity, url, showNullMessage, showView, callback) {
-		var app = this.getApplication();
+		var me = this;
 		var store = null;
 		if (storeName != "") {
 			store = Ext.getStore(storeName).load();
@@ -147,10 +144,14 @@ Ext.application({
 			url : url,
 			method : "POST",
 			success : function(response, options) {
+
 				var resp = Ext.JSON.decode(response.responseText);
-				store.setData(resp.array);
+				console.log(resp);
+				me.listData = resp.array;
+				store.setData(me.listData.slice(0, 15));
 				Ext.Viewport.setMasked(false);
 			},
+
 			failure : function(response, options) {
 				console.log("failure" + response);
 				if (typeof WL === 'undefined') {

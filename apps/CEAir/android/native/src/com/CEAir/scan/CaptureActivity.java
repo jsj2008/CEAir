@@ -44,6 +44,7 @@ public class CaptureActivity extends Activity implements Callback {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
 		System.out.println("CaptureActivity");
 		setContentView(R.layout.main);
 		CameraManager.init(getApplication());
@@ -147,6 +148,7 @@ public class CaptureActivity extends Activity implements Callback {
 		intent.putExtra("str", obj.getText());
 		setResult(RESULT_OK, intent);
 		finish();
+		overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
 	}
 
 	private void initBeepSound() {

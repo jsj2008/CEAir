@@ -7,7 +7,7 @@ Ext.define('CEAIR.view.Main', {
 
 	config : {
 		layout : {
-//			animation : !Ext.os.is.Android
+			animation : Ext.os.is.iOS ? {duration: 300, easing: 'ease-out',type: 'slide', direction: 'left'} : false
 		},
 		navigationBar : {
 			backButton : {

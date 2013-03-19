@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "iCarousel.h"
 #import "NativePage.h"
+#import "CDVAppDelegate.h"
 
 @interface CubeViewController : UIViewController<iCarouselDataSource, iCarouselDelegate>
 

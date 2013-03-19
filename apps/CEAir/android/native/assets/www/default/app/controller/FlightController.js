@@ -64,13 +64,6 @@ Ext.define("CEAIR.controller.FlightController", {
 			app.getRequest("Flight", null, url, true, "", "");
 			FlightStore.clearFilter(true);
 		}
-		// } else {
-		// var store = Ext.create('Ext.data.Store', {
-		// model : "CEAIR.model.Collect",
-		// });
-		// store.load();
-		// content.setStore(store);
-		// }
 	},
 
 	onMyFlightListActivate : function() {

@@ -84,10 +84,22 @@ Ext
 									scrollable : 'vertical',
 									id : "flightListContent",
 									xtype : 'list',
+									store : "Flight",
 									flex : 1,
+									plugins : [ {
+										xclass : 'Ext.plugin.PullRefresh',
+										pullRefreshText : '下拉获取最新航班信息',
+										releaseRefreshText : '松开开始更新',
+										loadingText : '正在刷新……',
+									}, {
+										xclass : 'Ext.plugin.ListPaging',
+										autoPaging : true,
+										loadMoreText : "加载更多...",
+										noMoreRecordsText : '没有更多条记录了',
+									} ],
 									itemTpl : new Ext.XTemplate(
-											"<div style='overflow:hidden'><div style='float:left'><div><img src='images/Flight/flightImg.png' width='138' height='76' />"
-													+ "<div class='flightNo'><span>{flightnodisp}</span></div></div></div>"
+											"<div style='overflow:hidden'><div style='float:left;margin: 25px 0;'><img src='images/Flight/donghang.png' width='16' height='16' /></div>"
+													+ "<div class='flightNo' style='float:left;margin: 25px 5px;'><span>{flightnodisp}</span></div>"
 													+ "<div style='float:right;width:50%'><span class='time' style='border-right:1px #bcbcbc dashed'>{[this.subOnTime(values.plandepttimedisp)]}</span><span class='time' style='color:#aaabab'>{[this.subOnTime(values.planarrtimedisp)]}</span></div></div>",
 											{
 												subOnTime : function(t) {

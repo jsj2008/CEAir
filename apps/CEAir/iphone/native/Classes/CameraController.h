@@ -10,6 +10,7 @@
 #import "ZXingWidgetController.h"
 #import "QRCodeReader.h"
 #import "NativePage.h"
+#import "CDVAppDelegate.h"
 
 @interface CameraController : UIViewController<ZXingDelegate>
 

@@ -51,7 +51,7 @@ public class CubeViewActivity extends Activity implements OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		overridePendingTransition(android.R.anim.slide_in_left,android.R.anim.slide_out_right);
 		// Go fullscreen
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -112,6 +112,7 @@ public class CubeViewActivity extends Activity implements OnClickListener {
 		intent.putExtra("index", index);
 		setResult(RESULT_OK, intent);
 		finish();
+		overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
 	}
 
 	/**

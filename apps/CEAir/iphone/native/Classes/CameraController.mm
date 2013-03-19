@@ -53,12 +53,14 @@
     NSLog(@"%@",result);
     [_widController dismissViewControllerAnimated:YES completion:nil];
     NSDictionary *dic = [NSDictionary dictionaryWithObject:result forKey:@"str"];
+    [self showTransitionAnim];
     [NativePage showWebView:dic];
 }
 
 - (void)zxingControllerDidCancel:(ZXingWidgetController*)controller
 {
     [_widController dismissViewControllerAnimated:YES completion:nil];
+    [self showTransitionAnim];
     [NativePage showWebView:nil];
 }
 
@@ -76,6 +78,19 @@
         _widController = nil;
     }
     [super dealloc];
+}
+
+-(void)onAfterShow{
+  [self showTransitionAnim];
+}
+
+-(void)showTransitionAnim
+{
+    CDVAppDelegate *cordovaAppDelegate =[[UIApplication sharedApplication] delegate];
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.5];
+    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:[cordovaAppDelegate window] cache:YES];
+    [UIView commitAnimations];
 }
 
 @end
